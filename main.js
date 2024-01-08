@@ -13,10 +13,17 @@ function createWindow () {
   })
 
   // and load the index.html of the app.
-  mainWindow.loadFile('index.html')
+
+  if (process.argv.length > 2) {
+    if (process.argv[2].startsWith("http:") || process.argv[2].startsWith("https:")) {
+      mainWindow.loadURL(process.argv[2]);
+    } else {
+      mainWindow.loadFile(process.argv[2])
+    }
+  }
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools({mode:'bottom'})
 }
 
 // This method will be called when Electron has finished
